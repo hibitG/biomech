@@ -1,0 +1,47 @@
+def ins(c,k):
+  while c[k]> c[int((k-1)/2)] :
+    c[k],c[(k-1)//2] = c[(k-1)//2], c[k]
+    k = (k-1)//2
+
+def insmin(c,k):
+  while c[k] < c[2*k+1] or c[k] < c[2*k+2] :
+    if c[2*k+1]>= c[2*k+2] :
+      c[k],c[2*k+1]= c[2*k+1],c[k]
+      k = 2*k+1
+      print(c)
+    else:
+      c[k],c[2*k+2] = c[2*k+2],c[k]
+      k = 2*k+2
+    if 2*k + 1>= len(c) or 2*k+2 >= len(c):
+      break
+l = []
+c = []
+def lol (c,x):
+  c.append(x)
+  if len(c) < 4 :
+    c = sorted(c, reverse = True)
+  else:
+    ins(c,len(c)-1)
+  return c
+n = int(input())# колличество операций
+m =[]
+for i in range(n):
+  m = input().split()# "инсерт х" означает ввод числа х в кучу
+  if m[0] == 'Insert':
+      c.append(int(m[1]))
+      if len(c) < 4 :
+        c = sorted(c, reverse = True)
+      else:
+        ins(c,len(c)-1)
+  else:# если не инсерт, то выемка максимального числа, и просеивание кучи 
+    if len(c)==0:
+      break
+    if len(c)<4:
+        l = c.pop(0)
+        print(l)
+        c = sorted(c, reverse = True)
+    else:
+        c[0],c[-1]= c[-1],c[0]
+        l = c.pop(-1)
+        print(l)
+        insmin(c,0)
